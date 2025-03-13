@@ -45,8 +45,14 @@
     "selector": "a[href*='/friends']",
     "text": ["这是主人的朋友们～", "要去拜访一下大佬们吗？", "点击发现更多有趣的博客！"]
   }, {
-    "selector": ".dark\\:text-gray-100, .dark\\:text-gray-400",
-    "text": ["夜间模式下也要保护眼睛哦！", "这个配色是不是很舒服呢？", "黑暗中我会陪着你的～"]
+    "selector": "a[href^='mailto']",
+    "text": ["邮件我会及时回复的！", "点击就可以发送邮件啦～"]
+  }, {
+    "selector": "a[href^='/tags/']",
+    "text": ["要去看看 <span>{text}</span> 标签么？", "点它可以查看此标签下的所有文章哟！"]
+  }, {
+    "selector": "a[href^='/categories/']",
+    "text": ["要去看看 <span>{text}</span> 分类么？", "点它可以查看此分类下的所有文章哟！"]
   }],
   "click": [{
     "selector": "#live2d",
