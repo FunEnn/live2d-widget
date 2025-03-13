@@ -1,5 +1,3 @@
-const { version } = require("node:punycode");
-
 // live2d_path 参数建议使用绝对路径
 const live2d_path = "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
 //const live2d_path = "/live2d-widget/";
