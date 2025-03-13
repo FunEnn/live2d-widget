@@ -1,3 +1,5 @@
+const { version } = require("node:punycode");
+
 // live2d_path 参数建议使用绝对路径
 const live2d_path = "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
 //const live2d_path = "/live2d-widget/";
@@ -11,8 +13,7 @@ function loadExternalResource(url, type) {
 			tag = document.createElement("link");
 			tag.rel = "stylesheet";
 			tag.href = url;
-		}
-		else if (type === "js") {
+		} else if (type === "js") {
 			tag = document.createElement("script");
 			tag.src = url;
 		}
@@ -39,6 +40,58 @@ if (screen.width >= 768) {
 			tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"]
 		});
 	});
+}
+
+if (screen.width >= 768) {
+	Promise.all([]).then(() => {
+		// 初始化看板娘鼠标监听事件
+		initWaifuMouseEvent();
+	});
+}
+
+function initWaifuMouseEvent() {
+	const waifu = document.getElementById("waifu");
+	let isDown = false;
+	let waifuLeft;
+	let mouseLeft;
+	let waifuTop;
+	let mouseTop;
+	// 鼠标点击监听
+	waifu.onmousedown = function (e) {
+		isDown = true;
+		// 记录x轴
+		waifuLeft = waifu.offsetLeft;
+		mouseLeft = e.clientX;
+		// 记录y轴
+		waifuTop = waifu.offsetTop;
+		mouseTop = e.clientY;
+	}
+	// 鼠标移动监听
+	window.onmousemove = function (e) {
+		if (!isDown) {
+			return;
+		}
+		// x轴移动
+		let currentLeft = waifuLeft + (e.clientX - mouseLeft);
+		if (currentLeft < 0) {
+			currentLeft = 0;
+		} else if (currentLeft > window.innerWidth - 300) {
+			currentLeft = window.innerWidth - 300;
+		}
+		waifu.style.left = currentLeft + "px";
+		// y轴移动
+		let currentTop = waifuTop + (e.clientY - mouseTop);
+		if (currentTop < 30) {
+			currentTop = 30
+		} else if (currentTop > window.innerHeight - 290) {
+			currentTop = window.innerHeight - 290
+		}
+		waifu.style.top = currentTop + "px";
+	}
+	// 鼠标点击松开监听
+	window.onmouseup = function (e) {
+		isDown = false;
+	}
 }
 
 console.log(`
